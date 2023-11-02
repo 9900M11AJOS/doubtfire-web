@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GroupSetService, LearningOutcomeService, TaskOutcomeAlignmentService, TeachingPeriodService, TutorialService, TutorialStreamService, Unit, UserService } from 'src/app/api/models/doubtfire-model';
-import { CachedEntityService, Entity, EntityMapping } from 'ngx-entity-service';
+import { CachedEntityService, Entity, EntityMapping, RequestOptions } from 'ngx-entity-service';
 import API_URL from 'src/app/config/constants/apiURL';
 import { UnitRoleService } from './unit-role.service';
 import { AppInjector } from 'src/app/app-injector';
@@ -9,6 +9,7 @@ import { TaskDefinitionService } from './task-definition.service';
 import { GroupService } from './group.service';
 import { Observable } from 'rxjs';
 import { DoubtfireConstants } from 'src/app/config/constants/doubtfire-constants';
+import { GlobalStateService } from 'src/app/projects/states/index/global-state.service';
 
 export type IloStats = {
   median: number;
@@ -32,7 +33,8 @@ export class UnitService extends CachedEntityService<Unit> {
     private taskDefinitionService: TaskDefinitionService,
     private taskOutcomeAlignmentService: TaskOutcomeAlignmentService,
     private groupSetService: GroupSetService,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private injector: Injector,
   ) {
     super(httpClient, API_URL);
 
@@ -237,6 +239,13 @@ export class UnitService extends CachedEntityService<Unit> {
       'extensionWeeksOnResubmitRequest',
       'allowStudentChangeTutorial'
     );
+  }
+
+  public override create(pathIds: object, options?: RequestOptions<Unit>): Observable<Unit> {
+    const newUnit = super.create(pathIds, options);
+    this.globalService.loadGlobals();
+    return newUnit;
+
   }
 
   public override createInstanceFrom(json: any, other?: any): Unit {
