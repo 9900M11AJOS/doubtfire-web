@@ -37,22 +37,22 @@ angular.module('doubtfire.admin.states.users', [])
     }
   )
 
-  # Table sort details
-  $scope.sortOrder = "id"
+  # # Table sort details
+  # $scope.sortOrder = "id"
 
-  # Pagination details
-  $scope.currentPage = 1
-  $scope.maxSize = 5
-  $scope.pageSize = 15
+  # # Pagination details
+  # $scope.currentPage = 1
+  # $scope.maxSize = 5
+  # $scope.pageSize = 15
 
   # Get the confugurable, external name of Doubtfire
-  $scope.externalName = DoubtfireConstants.ExternalName
+  # $scope.externalName = DoubtfireConstants.ExternalName
 
-  # User settings/create modal
-  $scope.showUserModal = (user) ->
-    # If we're given a user, show that user, else create a new one
-    userToShow = if user? then user else newUserService.createInstanceFrom { }
-    EditProfileService.openDialog(userToShow)
+  # # User settings/create modal
+  # $scope.showUserModal = (user) ->
+  #   # If we're given a user, show that user, else create a new one
+  #   userToShow = if user? then user else newUserService.createInstanceFrom { }
+  #   EditProfileService.openDialog(userToShow)
 
   $scope.downloadUsersCSV = () ->
     fileDownloaderService.downloadFile(newUserService.csvURL, "Users.csv")

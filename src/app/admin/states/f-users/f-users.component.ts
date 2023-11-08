@@ -4,7 +4,6 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { User } from 'src/app/api/models/doubtfire-model';
 import { MatPaginator } from '@angular/material/paginator';
 import { UserService } from 'src/app/api/models/doubtfire-model';
-import { GlobalStateService } from 'src/app/projects/states/index/global-state.service';
 import { EditProfileDialogService } from 'src/app/common/modals/edit-profile-dialog/edit-profile-dialog.service';
 import { Subscription } from 'rxjs';
 
@@ -27,7 +26,6 @@ export class FUsersComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private globalStateService: GlobalStateService,
     private editProfileDialogService: EditProfileDialogService,
   ) {
     this.dataload = false;
